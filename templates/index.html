@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="EN">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='css/clickasnap.svg') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+        <title> Vengeful Vegetables </title>
+    </head>
+    <nav>
+        <img src="{{ url_for('static',filename='images/clickasnap.svg') }}">
+        <img src="{{ url_for('static',filename='images/teemill.svg') }}">
+        <h1> Vengeful Vegetables </h1>
+
+    </nav>
     <body>
         <form id="inputForm">
             <label for="promptInput">Enter a prompt:</label>
             <input type="text" id="promptInput" name="prompt">
             <button type="submit">Submit</button>
         </form>
+        <main> <!-- THIS IS WHERE THE MAIN THINGY IS-->
+            <div>
+                <div>
+                    <canvas> <!-- ADD IMAGE -->
+                        
+                    </canvas>
+                </div>
+            </div>
+        </main>
         <script>
             document.getElementById('inputForm').addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -29,4 +51,7 @@
             })
         </script>
     </body>
+    <footer>
+
+    </footer>
 </html>
