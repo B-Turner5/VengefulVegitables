@@ -30,7 +30,7 @@ def process_input():
     userPrompt = data.get('prompt')
 
     image = stability_api.generate(
-    prompt=userPrompt + " on a completely white background.",
+    prompt=userPrompt,
     seed=random.randint(1,100000), # If a seed is provided, the resulting generated image will be deterministic.
                      # What this means is that as long as all generation parameters remain the same, you can always recall the same image simply by generating it again.
                      # Note: This isn't quite the case for Clip Guided generations, which we'll tackle in a future example notebook.
@@ -57,6 +57,7 @@ def process_input():
 
 
     return "Input recieved by Flask"
+    
 
 
 if __name__ == '__main__':
