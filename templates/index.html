@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <form id="inputForm">
+            <label for="promptInput">Enter a prompt:</label>
+            <input type="text" id="promptInput" name="prompt">
+            <button type="submit">Submit</button>
+        </form>
+        <script>
+            document.getElementById('inputForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const prompt = document.getElementById('promptInput').value;
+
+                fetch('/process_prompt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({prompt: prompt})
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Input sent to Flask server');
+                    } else{
+                        console.error('Error sending input to Flask server');
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>
