@@ -17,7 +17,7 @@
         <h1> Vengeful Vegetables </h1>
 
     </nav>
-    <body>
+    <body style="margin: 0; overflow: hidden;">
         <form id="inputForm">
             <label for="promptInput">Enter a prompt:</label>
             <input type="text" id="promptInput" name="prompt">
@@ -38,14 +38,14 @@
                         id="animated-marker"
                         type="pattern"
                         preset="custom"
-                        url="assets/marker.patt"
+                        url="{{ url_for('static',filename='assets/AR/marker.patt')}}"
                         raycaster="objects: .clickable"
                         emitevents="true"
                         cursor="fuse: false; rayOrigin: mouse;"
                         id="markerA"
                     >
                         <a-image
-                            src="assets/asset.png"
+                            src="{{ url_for('static',filename='assets/AR/asset.png') }}"
                             scale="1 1 1"
                             class="clickable"
                             rotation="-90 0 0"
