@@ -18,8 +18,6 @@ stability_api = client.StabilityInference(
     engine="stable-diffusion-xl-1024-v1-0"
 )
 
-
-
 @app.route("/")
 def hello_world():
     return render_template('index.html')

@@ -1,3 +1,29 @@
-* {
+.splash {
+    z-index: 1;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /*display: none; /* hide this if needed */
+    transition: all ease-in-out 600ms;
+}
 
+.splash img {
+    align-items: center;
+    width: 50vw;
+    height: 50vw;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    opacity: 0;
+    transition: all ease-in-out 600ms;
+}
+
+.hidden {
+    transform: 0.5s;
+    display: none;
 }
