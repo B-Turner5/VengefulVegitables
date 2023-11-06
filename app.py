@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_file
 import os
 import io
 import warnings
@@ -26,6 +26,9 @@ def hello_world():
 
 @app.route('/process_prompt', methods=['POST'])
 def process_input():
+
+    clear_cache()
+
     data = request.get_json()
     userPrompt = data.get('prompt')
 
@@ -53,12 +56,20 @@ def process_input():
                     "Please modify the prompt and try again.")
             if artifact.type == generation.ARTIFACT_IMAGE:
                 img = Image.open(io.BytesIO(artifact.binary))
-                img.save("./generated/" + str(artifact.seed)+ ".png") # Save our generated images with their seed number as the filename.
-
-
-    return "Input recieved by Flask", open("./generated/" + str(artifact.seed) + ".png", mode='r')
+                img.save("./static/generated/" + str(artifact.seed)+ ".png") # Save our generated images with their seed number as the filename.
+    filename = "static/generated/" + str(artifact.seed) + ".png"
+    return filename
     
-
+def clear_cache():
+    try:
+        files = os.listdir("./static/generated")
+        for file in files:
+            file_path = os.path.join("./static/generated", file)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+        print("Cache cleared.")
+    except OSError:
+        print("Error occured when purging cache.")
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)

@@ -23,6 +23,7 @@
             <input type="text" id="promptInput" name="prompt">
             <button type="submit">Submit</button>
         </form>
+        <img id="displayedImage" src="" alt="Generated Image">
         <main> <!-- THIS IS WHERE THE MAIN THINGY IS-->
             <div>
                 <div>
@@ -72,12 +73,13 @@
                     body: JSON.stringify({prompt: prompt})
                 })
                 .then(response => {
-                    console.log(response)
                     if (response.ok) {
-                        console.log('Input sent to Flask server');
-                    } else{
-                        console.error('Error sending input to Flask server');
-                    }
+                    return response.text();
+                } else {
+                    console.error('Error fetching image from server');
+                }})
+                .then(text => {
+                    document.getElementById('displayedImage').src = text; // Set the src attribute of the image
                 })
             })
         </script>
