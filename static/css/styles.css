@@ -12,18 +12,39 @@
     transition: all ease-in-out 600ms;
 }
 
-.splash img {
+.splash-content img {
     align-items: center;
     width: 50vw;
     height: 50vw;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    opacity: 0;
-    transition: all ease-in-out 600ms;
+}
+
+.splash-content h1 {
+    font-family: 'Segoe UI';
+    font-weight: 600;
+    color: #2c2d2d;
+    font-size: 3vw;
 }
 
 .hidden {
-    transform: 0.5s;
+    transform: all linear 0.5s;
     display: none;
+}
+
+.splash-content {
+    transform: scale(0%);
+    opacity: 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    transition: all linear 1000ms, transform ease-in-out 900ms;
+}
+
+.grow {
+    transform: scale(100%);
+    opacity: 1;
+}
+
+.slide {
+    transform: translateY(100vh);
 }

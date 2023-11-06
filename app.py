@@ -6,7 +6,7 @@ from PIL import Image
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 import random
-from rembg import remove # decided that it doesn't want to install. do pip install rembg later
+#from rembg import remove # decided that it doesn't want to install. do pip install rembg later
 
 app = Flask(__name__)
 

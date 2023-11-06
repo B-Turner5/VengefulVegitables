@@ -1,14 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var splashIcon = document.querySelector(".splash-icon");
-    setTimeout(()=>{
-        splashIcon.style.opacity = 1;
-    }, 610)
-
+    var splashContent = document.querySelector(".splash-content");
     var splashScreen = document.querySelector(".splash");
+
+    setTimeout(()=>{
+        splashContent.classList.add("grow");
+    }, 600)
+
     splashScreen.addEventListener('click', ()=>{
         splashScreen.style.opacity = 0;
+        splashContent.classList.add("slide");
         setTimeout(()=>{
-            splashScreen.classList.add('hidden')
-        }, 610)
+            splashScreen.classList.add('hidden');
+        }, 600)
     })
 });
