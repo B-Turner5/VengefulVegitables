@@ -6,6 +6,7 @@ from PIL import Image
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 import random
+from rembg import remove # decided that it doesn't want to install. do pip install rembg later
 
 app = Flask(__name__)
 
@@ -56,6 +57,7 @@ def process_input():
                 img = Image.open(io.BytesIO(artifact.binary))
                 img.save("./static/generated/" + str(artifact.seed)+ ".png") # Save our generated images with their seed number as the filename.
     filename = "static/generated/" + str(artifact.seed) + ".png"
+    remove_background(filename)
     return filename
     
 def clear_cache():
@@ -68,6 +70,11 @@ def clear_cache():
         print("Cache cleared.")
     except OSError:
         print("Error occured when purging cache.")
+
+def remove_background(i_path):
+    img_input = Image.open(i_path)
+    img_output = remove(img_input)
+    img_output.save(i_path)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
