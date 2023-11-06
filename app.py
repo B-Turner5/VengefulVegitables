@@ -56,7 +56,7 @@ def process_input():
                 img.save("./generated/" + str(artifact.seed)+ ".png") # Save our generated images with their seed number as the filename.
 
 
-    return "Input recieved by Flask"
+    return "Input recieved by Flask", open("./generated/" + str(artifact.seed) + ".png", mode='r')
     
 
 

@@ -72,6 +72,7 @@
                     body: JSON.stringify({prompt: prompt})
                 })
                 .then(response => {
+                    console.log(response)
                     if (response.ok) {
                         console.log('Input sent to Flask server');
                     } else{
