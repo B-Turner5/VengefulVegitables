@@ -32,8 +32,8 @@
                 <input type="text" id="promptInput" name="prompt">
             </div>
             <div id="main-frame">
-                <img src="" id="displayedImage">
-                <canvas id="drawingCanvas">
+                <img src="" id="displayedImage" width="100%" height="100%">
+                <canvas id="drawingCanvas" width="100%" height="100%" style="box-shadow: none;">
                     <script src="{{ url_for('static',filename='script/index.js')}}"></script>
                 </canvas>
                 <!-- <img src="" id="displayedImage"> -->
@@ -64,6 +64,7 @@
                 }})
                 .then(text => {
                     document.getElementById('displayedImage').src = text; // Set the src attribute of the image
+                    document.getElementById('displayedImage').style.display = "block";
                 })
             })
         </script>
