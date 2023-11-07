@@ -6,9 +6,9 @@ from PIL import Image
 from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 import random
-#from rembg import remove # decided that it doesn't want to install. do pip install rembg later
 from torch import autocast
 from diffusers import StableDiffusionPipeline
+from super_image import DrlnModel, ImageLoader
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
@@ -57,11 +57,11 @@ def clear_cache():
     except OSError:
         print("Error occured when purging cache.")
 
-def remove_background(i_path):
-    img_input = Image.open(i_path)
-    img_output = remove(img_input)
-    img_output.save(i_path)
-
+def upscale_image(image, output_path):
+    model = DrlnModel.from_pretrained('eugenesiow/drln-bam', scale=2)
+    inputs = ImageLoader.load_image(image)
+    preds = model(inputs)
+    ImageLoader.save_image(preds, output_path)
 
 def artifact_shit(userPrompt):
     image = stability_api.generate(
