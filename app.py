@@ -7,6 +7,11 @@ from stability_sdk import client
 import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 import random
 #from rembg import remove # decided that it doesn't want to install. do pip install rembg later
+from torch import autocast
+from diffusers import StableDiffusionPipeline
+
+
+###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
 
 app = Flask(__name__)
 
@@ -31,6 +36,33 @@ def process_input():
     data = request.get_json()
     userPrompt = data.get('prompt')
 
+
+    pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4")
+    pipe.to("cuda")
+    image = pipe(userPrompt).images[0]
+    
+    output_path = f"static/generated/{userPrompt}.png"
+    image.save(output_path)
+    return output_path
+    
+def clear_cache():
+    try:
+        files = os.listdir("./static/generated")
+        for file in files:
+            file_path = os.path.join("./static/generated", file)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+        print("Cache cleared.")
+    except OSError:
+        print("Error occured when purging cache.")
+
+def remove_background(i_path):
+    img_input = Image.open(i_path)
+    img_output = remove(img_input)
+    img_output.save(i_path)
+
+
+def artifact_shit(userPrompt):
     image = stability_api.generate(
     prompt=userPrompt,
     seed=random.randint(1,100000), # If a seed is provided, the resulting generated image will be deterministic.
@@ -59,22 +91,10 @@ def process_input():
     filename = "static/generated/" + str(artifact.seed) + ".png"
     remove_background(filename)
     return filename
-    
-def clear_cache():
-    try:
-        files = os.listdir("./static/generated")
-        for file in files:
-            file_path = os.path.join("./static/generated", file)
-            if os.path.isfile(file_path):
-                os.remove(file_path)
-        print("Cache cleared.")
-    except OSError:
-        print("Error occured when purging cache.")
 
-def remove_background(i_path):
-    img_input = Image.open(i_path)
-    img_output = remove(img_input)
-    img_output.save(i_path)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
+
+
+
