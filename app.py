@@ -21,6 +21,7 @@ stability_api = client.StabilityInference(
 
 @app.route("/")
 def hello_world():
+
     return render_template('index.html')
 
 @app.route('/process_prompt', methods=['POST'])
@@ -77,4 +78,4 @@ def remove_background(i_path):
     img_output.save(i_path)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", debug=True, ssl_context='adhoc')

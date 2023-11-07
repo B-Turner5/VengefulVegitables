@@ -5,11 +5,6 @@
         <meta charset="UTF-8">
         <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='images/teemill.svg') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
-        
-        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
 
 
         <script src="{{ url_for('static',filename='script/splash.js') }}"> </script>
@@ -30,9 +25,7 @@
         </form>
         <img id="displayedImage" src="" alt="Generated Image">
         <main> <!-- THIS IS WHERE THE MAIN THINGY IS-->
-            <div>
-            
-            </div>
+            <iframe src="{{ url_for('static',filename='pages/arjs_scene.html') }}" width="100%" height="100%" id="ar"></iframe>
         </main>
         <script>
             document.getElementById('inputForm').addEventListener('submit', function(event) {

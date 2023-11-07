@@ -1,3 +1,7 @@
+* {
+    overflow-x: hidden;
+}
+
 .splash {
     z-index: 1;
     position: absolute;
@@ -47,4 +51,13 @@
 
 .slide {
     transform: translateY(100vh);
+}
+
+main {
+    overflow: hidden;
+    position: relative;
+}
+
+#ar {
+    height: 50vw;
 }
