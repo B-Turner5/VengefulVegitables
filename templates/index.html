@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='images/teemill.svg') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
 
         <script src="{{ url_for('static',filename='script/splash.js') }}"> </script>
@@ -17,18 +18,27 @@
             <h1> Tap to Start </h1>
         </div>
     </div>
+    <div id="camera-overlay">
+        <iframe src="{{ url_for('static',filename='pages/arjs_scene.html') }}" width="100%" height="100%" frameBorder="0"></iframe>
+    </div>
     <body style="margin: 0; overflow: hidden;">
-        <form id="inputForm">
-            <label for="promptInput">Enter a prompt:</label>
-            <input type="text" id="promptInput" name="prompt">
-            <button type="submit">Submit</button>
-        </form>
-        <img id="displayedImage" src="" alt="Generated Image">
+        <nav>
+            <img src="{{ url_for('static',filename='images/teemill.svg') }}">
+            <h1> Vengeful Vegetables </h1>
+        </nav>
         <main> <!-- THIS IS WHERE THE MAIN THINGY IS-->
-            <iframe src="{{ url_for('static',filename='pages/arjs_scene.html') }}" width="100%" height="100%" id="ar"></iframe>
+            <div id="inputPrompt">
+                <p>Enter a prompt:</p>
+                <input type="text" id="promptInput" name="prompt">
+            </div>
+            <iframe id="main-frame"></iframe> <!-- PUT DRAWING CANVAS HERE-->
+            <div id="button-box">
+                <button id="gen-image-button"> Generate AI Image </button>
+                <button id="search-image-button"> Search ClickASnap </button>
+            </div>
         </main>
         <script>
-            document.getElementById('inputForm').addEventListener('submit', function(event) {
+            document.getElementById('gen-image-button').addEventListener('click', function(event) {
                 event.preventDefault();
 
                 const prompt = document.getElementById('promptInput').value;

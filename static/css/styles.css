@@ -1,5 +1,6 @@
 * {
     overflow-x: hidden;
+    font-family: 'Segoe UI';
 }
 
 .splash {
@@ -56,8 +57,88 @@
 main {
     overflow: hidden;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #ar {
     height: 50vw;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav img {
+    height: 12vw;
+    padding: 2vw;
+}
+
+nav h1 {
+    font-size: 7vw;
+}
+
+#camera-overlay {
+    display: none;
+    z-index: 2;
+    position: absolute;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+
+#inputPrompt {
+    margin: 0 auto;
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#inputPrompt p {
+    font-size: 3vw;
+}
+
+#inputPrompt input {
+    height: 10vw;
+    font-size: 5vw;
+    border-radius: 2vw;
+    padding: 2vw;
+}
+
+button {
+    margin: 2vw;
+    width: 50vw;
+    height: 10vw;
+    border-radius: 5vw;
+    font-size: 5vw;
+    background-color: #0aadff;
+    color: white;
+    border: none;
+}
+
+button:active {
+    background-color: white;
+    color: #0aadff;
+    border: solid 2px #0aadff;
+}
+
+#button-box {
+    width: 75vw;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#main-frame {
+    margin: 10vw auto;
+    width: 75vw;
+    height: 75vw;
+    border: solid rgb(60, 60, 60) 2px;
+    border-radius: 2vw;
 }

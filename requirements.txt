@@ -7,3 +7,4 @@ Pillow
 stability_sdk
 rembg
 transformers
+pyopenssl
