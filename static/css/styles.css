@@ -141,4 +141,33 @@ button:active {
     height: 75vw;
     border: solid rgb(60, 60, 60) 2px;
     border-radius: 2vw;
+    overflow: hidden;
+}
+
+  .canvas-container {
+    position: relative;
+    height: calc(100vh - 55px);
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  canvas {
+    position: relative;
+    top: -7.5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    max-width: 100%;
+    max-height: 100%;
+    box-shadow: 0 0 4px;
+  }
+  
+  .align-right {
+    float: right;
+  }
+  
+  .displayedImage {
+    max-width: 100%;
+    max-height: 100%;
 }

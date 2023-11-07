@@ -31,7 +31,13 @@
                 <p>Enter a prompt:</p>
                 <input type="text" id="promptInput" name="prompt">
             </div>
-            <iframe id="main-frame"></iframe> <!-- PUT DRAWING CANVAS HERE-->
+            <div id="main-frame">
+                <img src="" id="displayedImage">
+                <canvas id="drawingCanvas">
+                    <script src="{{ url_for('static',filename='script/index.js')}}"></script>
+                </canvas>
+                <!-- <img src="" id="displayedImage"> -->
+            </div> <!-- PUT DRAWING CANVAS HERE-->
             <div id="button-box">
                 <button id="gen-image-button"> Generate AI Image </button>
                 <button id="search-image-button"> Search ClickASnap </button>
