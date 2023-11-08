@@ -74,11 +74,7 @@ def process_image_input():
         image = io.BytesIO(r.binary)
         image.save(str)
     else:
-    r.raise_for_status()
-
+        r.raise_for_status()
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True, ssl_context="adhoc")
-
-
-

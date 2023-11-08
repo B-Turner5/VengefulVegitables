@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     var splashContent = document.querySelector(".splash-content");
-    var splashScreen = document.querySelector(".splash");
+    var splashScreen = document.querySelector(".splash-screen");
 
     setTimeout(()=>{
         splashContent.classList.add("grow");
