@@ -9,11 +9,14 @@ from diffusers import StableDiffusionPipeline
 from super_image import DrlnModel, ImageLoader
 import requests
 import base64
+import sys
+import curlify
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 16000000
 
 @app.route("/")
 def hello_world():
@@ -57,29 +60,28 @@ def upscale_image(image, output_path):
 @app.route('/process_drawing', methods=['POST'])
 def process_image_input():
     data = request.get_json()
-    userPrompt = data.get('prompt')
+    print(data)
     userDrawingBase64 = data.get('imagebase64')
     print(userDrawingBase64)
-    # userDrawing = Image.open(io.BytesIO(base64.decodebytes(bytes(userDrawingBase64, "utf-8"))))
 
-    userDrawingBase64.save('static/generated/drawing', 'jpg')
+    # # userDrawing = Image.open(io.BytesIO(base64.decodebytes(bytes(userDrawingBase64, "utf-8"))))
+
+    userDrawing.save('static/generated/drawing', 'jpg')
 
     clear_cache()
 
-    sketch_file_object = None
-
-    r = requests.post('https://clipdrop-api.co/sketch-to-image/v1/sketch-to-image',
-    files = {
-        'sketch_file': ('static/generated/drawing.jpg', sketch_file_object, 'image/jpeg'),
-        },
-    data = { 'prompt': userPrompt},
-    headers = { 'x-api-key': '9da43ca4ce11dbf1b1cdab36ecf968c36896bbb5a46f5b1a4d62e8039737176c023f251323833cd6d1580eea6ba22b4c'}
-    )
-    if (r.ok):
-        image = io.BytesIO(r.binary)
-        image.save(str)
-    else:
-        r.raise_for_status()
+    # r = requests.post('https://clipdrop-api.co/sketch-to-image/v1/sketch-to-image',
+    # files = {
+    #     'sketch_file': ('static/generated/drawing.jpg', sketch_file_object, 'image/jpeg'),
+    #     },
+    # data = { 'prompt': userPrompt},
+    # headers = { 'x-api-key': '9da43ca4ce11dbf1b1cdab36ecf968c36896bbb5a46f5b1a4d62e8039737176c023f251323833cd6d1580eea6ba22b4c'}
+    # )
+    # if (r.ok):
+    #     image = io.BytesIO(r.binary)
+    #     image.save(str)
+    # else:
+    #     r.raise_for_status()
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", debug=True, ssl_context="adhoc")
