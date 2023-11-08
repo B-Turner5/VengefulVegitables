@@ -90,7 +90,6 @@ def artifact_shit(userPrompt):
                 img = Image.open(io.BytesIO(artifact.binary))
                 img.save("static/generated/" + str(artifact.seed)+ ".png") # Save our generated images with their seed number as the filename.
     filename = "static/generated/" + str(artifact.seed) + ".png"
-    remove_background(filename)
     return filename
 
 

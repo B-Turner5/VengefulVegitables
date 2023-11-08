@@ -7,7 +7,6 @@
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-
         <script src="{{ url_for('static',filename='script/splash.js') }}"> </script>
 
         <title> Vengeful Vegetables </title>
@@ -19,6 +18,7 @@
         </div>
     </div>
     <div id="camera-overlay">
+        <button id="close-camera" style="position: absolute;"> Close </button>
         <iframe src="{{ url_for('static',filename='pages/arjs_scene.html') }}" width="100%" height="100%" frameBorder="0"></iframe>
     </div>
     <body style="margin: 0; overflow: hidden;">
@@ -41,6 +41,7 @@
             <div id="button-box">
                 <button id="gen-image-button"> Generate AI Image </button>
                 <button id="search-image-button"> Search ClickASnap </button>
+                <button id="open-camera"> Open Camera </button>
             </div>
         </main>
         <script>
@@ -66,6 +67,14 @@
                     document.getElementById('displayedImage').src = text; // Set the src attribute of the image
                     document.getElementById('displayedImage').style.display = "block";
                 })
+            })
+
+            document.getElementById("open-camera").addEventListener("click", function(event) {
+                document.getElementById("camera-overlay").style.display = "flex";
+            })
+
+            document.getElementById("close-camera").addEventListener("click", function(event) {
+                document.getElementById("camera-overlay").style.display = "none";
             })
         </script>
     </body>
