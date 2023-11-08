@@ -1,16 +1,9 @@
---pre
-torch
-torchvision
-torchaudio
---index-url https://download.pytorch.org/whl/cu118
-
 flask
-Pillow
-stability_sdk
-transformers
 pyopenssl
 super_image
 cuda-python
-
-#pip3 install numpy --pre torch torchvision torchaudio --force-reinstall --index-url https://download.pytorch.org/whl/nightly/cu118
-#pip install --upgrade diffusers[torch]
+torch
+torchvision
+torchaudio
+Pillow
+transformers

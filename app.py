@@ -3,26 +3,17 @@ import os
 import io
 import warnings
 from PIL import Image
-from stability_sdk import client
-import stability_sdk.interfaces.gooseai.generation.generation_pb2 as generation
 import random
 from torch import autocast
 from diffusers import StableDiffusionPipeline
 from super_image import DrlnModel, ImageLoader
+import requests
+import base64
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
 
 app = Flask(__name__)
-
-os.environ["STABILITY_KEY"] = "sk-iWZM3tgSXtWq08nOkeBIEPx1mbh3W5AIaHqqHwIpZMnH2eXz"
-os.environ['STABILITY_HOST'] = 'grpc.stability.ai:443'
-
-stability_api = client.StabilityInference(
-    key=os.environ['STABILITY_KEY'],
-    verbose=True,
-    engine="stable-diffusion-xl-1024-v1-0"
-)
 
 @app.route("/")
 def hello_world():
@@ -43,7 +34,7 @@ def process_input():
     image = pipe(userPrompt).images[0]
     
     output_path = f"static/generated/{userPrompt}.png"
-    image.save(output_path)
+    image.save(output_path, 'png')
     return output_path
     
 def clear_cache():
@@ -63,38 +54,30 @@ def upscale_image(image, output_path):
     preds = model(inputs)
     ImageLoader.save_image(preds, output_path)
 
-def artifact_shit(userPrompt):
-    image = stability_api.generate(
-    prompt=userPrompt,
-    seed=random.randint(1,100000), # If a seed is provided, the resulting generated image will be deterministic.
-                     # What this means is that as long as all generation parameters remain the same, you can always recall the same image simply by generating it again.
-                     # Note: This isn't quite the case for Clip Guided generations, which we'll tackle in a future example notebook.
-    steps=30, # Amount of inference steps performed on image generation. Defaults to 30. 
-    cfg_scale=8.0, # Influences how strongly your generation is guided to match your prompt.
-                   # Setting this value higher increases the strength in which it tries to match your prompt.
-                   # Defaults to 7.0 if not specified.
-    width=1024, # Generation width, defaults to 512 if not included.
-    height=1024, # Generation height, defaults to 512 if not included.
-    samples=1, # Number of images to generate, defaults to 1 if not included.
-    sampler=generation.SAMPLER_K_DPMPP_2M # Choose which sampler we want to denoise our generation with.
-                                                 # Defaults to k_dpmpp_2m if not specified. Clip Guidance only supports ancestral samplers.
-                                                 # (Available Samplers: ddim, plms, k_euler, k_euler_ancestral, k_heun, k_dpm_2, k_dpm_2_ancestral, k_dpmpp_2s_ancestral, k_lms, k_dpmpp_2m, k_dpmpp_sde)
-)
-    for resp in image:
-        for artifact in resp.artifacts:
-            if artifact.finish_reason == generation.FILTER:
-                warnings.warn(
-                    "Your request activated the API's safety filters and could not be processed."
-                    "Please modify the prompt and try again.")
-            if artifact.type == generation.ARTIFACT_IMAGE:
-                img = Image.open(io.BytesIO(artifact.binary))
-                img.save("static/generated/" + str(artifact.seed)+ ".png") # Save our generated images with their seed number as the filename.
-    filename = "static/generated/" + str(artifact.seed) + ".png"
-    return filename
+@app.route('/process_drawing', methods=['POST'])
+def process_image_input():
+    data = request.get_json()
+    userPrompt = data.get('prompt')
+    userDrawingBase64 = data.get('imagebase64')
+    print(userDrawingBase64)
+    # userDrawing = Image.open(io.BytesIO(base64.decodebytes(bytes(userDrawingBase64, "utf-8"))))
 
+    userDrawing.save('static/generated/drawing', 'jpg')
+
+    clear_cache()
+
+    r = requests.post('https://clipdrop-api.co/sketch-to-image/v1/sketch-to-image',
+    files = {
+        'sketch_file': ('static/generated/drawing.jpg', sketch_file_object, 'image/jpeg'),
+        },
+    data = { 'prompt': userPrompt},
+    headers = { 'x-api-key': '9da43ca4ce11dbf1b1cdab36ecf968c36896bbb5a46f5b1a4d62e8039737176c023f251323833cd6d1580eea6ba22b4c'}
+    )
+    if (r.ok):
+        image = io.BytesIO(r.binary)
+        image.save(str)
+    else:
+        r.raise_for_status()
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True, ssl_context="adhoc")
-
-
-

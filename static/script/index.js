@@ -1,11 +1,14 @@
+/**
+ * Canvas code taken from teemill API example page. https://codepen.io/Teemill/pen/ExLerwZ
+ */
+
 const canvas = document.getElementById('drawingCanvas');
-// const canvasContainer = document.getElementById('drawingContainer'); //Wont work due to scope of the script, however if the script is not inside the div, it will cease to function.... help?????
 
 const context = canvas.getContext('2d');
 
 const color = '#000000';
 
-// canvasContainer.id = "false";
+let drawingMade = false;
 
 canvas.width = 512;
 canvas.height = 512;
@@ -35,7 +38,7 @@ function drawCircle(x, y, radius, color) {
 }
 
 function onMouseDown(e) {
-//   canvasContainer.id = "true";
+  drawingMade = true;
   if (e.touches) {
     e = e.touches[0];
   }
@@ -100,15 +103,53 @@ canvas.addEventListener('touchmove', onMouseMove);
 window.addEventListener('mouseup', onMouseUp);
 window.addEventListener('touchend', onMouseUp);
 
-// const button = document.getElementById('gen-image-button');
-// button.addEventListener('click', (e) => {
-//     if (drawingMade == false){
-//         console.log("No Drawing Made.")
-//     }
-//     else{
-//         e.preventDefault();
-//         const base64_image = canvas.toDataURL();
-//     }
-// })
 
-    
+const button = document.getElementById('gen-image-button');
+
+
+button.addEventListener('click', (e) => {
+  const prompt = document.getElementById('promptInput').value;
+  e.preventDefault();
+  if(drawingMade == false){
+
+    fetch('/process_prompt', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"prompt": prompt})
+    })
+    .then(response => {
+      if (response.ok) {
+      return response.text();
+    } else {
+      console.error('Error fetching image from server');
+    }})
+    .then(text => {
+      document.getElementById('displayedImage').src = text; // Set the src attribute of the image
+      document.getElementById('displayedImage').style.display = "block";
+    })
+  }
+  else{
+    const base64_image = canvas.toDataURL("image/png");
+    var drawing = new Image();
+    drawing.src = base64_image;
+    fetch('/process_drawing', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"imagebase64": base64_image, "prompt": prompt})
+      })
+    .then(response => {
+      if (response.ok) {
+        return response.text();
+    } else {
+      console.error('Error fetching image from server');
+      }})
+     .then(text => {
+      document.getElementById('displayedImage').src = text; // Set the src attribute of the image
+      document.getElementById('displayedImage').style.display = "block";
+  })
+  }
+})
