@@ -6,6 +6,7 @@
 }
 
 body {
+    z-index: 0;
     height: 100vh;
     width: 100vw;
     margin: 0;
@@ -14,7 +15,7 @@ body {
 /*** SPLASH SCREEN ****/
 
 .splash-screen {
-    z-index: 1;
+    z-index: 999;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -90,7 +91,7 @@ nav img {
 
 #camera-overlay {
     display: none;
-    z-index: 2;
+    z-index: 500;
     position: absolute;
     overflow: hidden;
     width: 100vw;
@@ -124,21 +125,25 @@ nav img {
     border: solid rgb(60, 60, 60) 2px;
     border-radius: 2vw;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
   
 #drawing-canvas {
     position: absolute;
-    box-shadow: 0 0 4px;
     height: 75vw;
     width: 75vw;
 }
   
 #output-image {
     z-index: 1;
+    opacity: 0;
     position: absolute;
     display: none;
     height: 75vw;
     width: 75vw;
+    transition: opacity ease-in-out 1s;
 }
 
 /* BUTTONS */
@@ -154,19 +159,22 @@ button {
     transition: transform ease-in-out 0.5s;
 }
 
-button:hover {
-    transform: scale(110%);
+button:active {
+    background-color: red;
 }
 
-button:active {
-    background-color: white;
-    color: #0aadff;
-    border: solid 2px #0aadff;
-    transform: scale(110%);
+.flat-button {
+    right: 0%;
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    color: white;
 }
 
 #button-container {
-    width: 75vw;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -174,14 +182,69 @@ button:active {
     justify-content: center;
 }
 
-
 #gen-button-container {
+    width: 100%;
     display: flex;
     align-items: center;
     flex-direction: row;
 }
 
-#gen-button-container button {
-    width: 50%;
+#button-container button {
+    width: 48%;
+    overflow: hidden;
+    margin: 1%;
 }
 
+#gen-image-button {
+    border-radius: 5vw 0vw 0vw 5vw;
+}
+
+#search-image-button {
+    border-radius: 0vw 5vw 5vw 0vw;
+}
+
+#extra-button-container  {
+    width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    display: none;
+}
+
+#extra-button-container-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#open-camera-button {
+    border-radius: 5vw 0vw 0vw 5vw;
+}
+
+#clear-image-button {
+    border-radius: 0vw 5vw 5vw 0vw;
+}
+
+#purchase-button {
+    width: 100%;
+}
+
+/* LOADER */
+
+#loader {
+    z-index: 5;
+    opacity: 0;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    transition: opacity ease-in-out 1s;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

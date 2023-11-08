@@ -2,7 +2,7 @@
  * Canvas code taken from teemill API example page. https://codepen.io/Teemill/pen/ExLerwZ
  */
 
-const canvas = document.getElementById('drawingCanvas');
+const canvas = document.getElementById('drawing-canvas');
 
 const context = canvas.getContext('2d');
 
@@ -106,9 +106,11 @@ window.addEventListener('touchend', onMouseUp);
 
 const button = document.getElementById('gen-image-button');
 
-
 button.addEventListener('click', (e) => {
-  const prompt = document.getElementById('promptInput').value;
+  const prompt = document.getElementById('prompt-input').value;
+
+  document.getElementById('loader').style.opacity = 1;
+
   e.preventDefault();
   if(drawingMade == false){
 
@@ -126,14 +128,20 @@ button.addEventListener('click', (e) => {
       console.error('Error fetching image from server');
     }})
     .then(text => {
-      document.getElementById('displayedImage').src = text; // Set the src attribute of the image
-      document.getElementById('displayedImage').style.display = "block";
+      document.getElementById('output-image').src = text; // Set the src attribute of the image
+      document.getElementById('output-image').style.opacity = 1;
+      setTimeout(()=>{
+        document.getElementById('output-image').style.display = "block";
+    }, 1000)
+
+      document.getElementById('gen-button-container').style.display = "none";
+      document.getElementById('extra-button-container').style.display = "flex";
+      document.getElementById('loader').style.opacity = 0;
     })
   }
   else{
-    const base64_image = canvas.toDataURL("image/png");
-    var drawing = new Image();
-    drawing.src = base64_image;
+    base64_image = canvas.toDataURL("image/png");
+    console.log(base64_image)
     fetch('/process_drawing', {
       method: 'POST',
       headers: {
@@ -148,8 +156,20 @@ button.addEventListener('click', (e) => {
       console.error('Error fetching image from server');
       }})
      .then(text => {
-      document.getElementById('displayedImage').src = text; // Set the src attribute of the image
-      document.getElementById('displayedImage').style.display = "block";
-  })
+      document.getElementById('output-image').src = text; // Set the src attribute of the image
+      document.getElementById('output-image').style.opacity = 1;
+      setTimeout(()=>{
+        document.getElementById('output-image').style.display = "block";
+    }, 1000)
+  
+      document.getElementById('gen-button-container').style.display = "none";
+      document.getElementById('extra-button-container').style.display = "flex";
+      document.getElementById('loader').style.opacity = 0;
+    })
   }
+})
+
+document.getElementById("search-image-button").addEventListener('click', (e) => {
+    document.getElementById('gen-button-container').style.display = "none";
+    document.getElementById('extra-button-container').style.display = "flex";
 })
