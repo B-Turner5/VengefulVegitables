@@ -3,12 +3,12 @@ torch
 torchvision
 torchaudio
 
-cuda-python
 flask
 Pillow
 transformers
 pyopenssl
 super_image
+cuda-python
 
 # --upgrade diffusers[torch]
 
