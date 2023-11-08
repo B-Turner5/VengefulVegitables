@@ -8,6 +8,7 @@ from torch import autocast
 from diffusers import StableDiffusionPipeline
 from super_image import DrlnModel, ImageLoader
 import requests
+import base64
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
@@ -58,17 +59,19 @@ def process_image_input():
     data = request.get_json()
     userPrompt = data.get('prompt')
     userDrawingBase64 = data.get('imagebase64')
+    print(userDrawingBase64)
+    # userDrawing = Image.open(io.BytesIO(base64.decodebytes(bytes(userDrawingBase64, "utf-8"))))
 
-    uesrDrawing = image.save('static/generated/drawing', 'png')
+    userDrawing.save('static/generated/drawing', 'jpg')
 
     clear_cache()
 
     r = requests.post('https://clipdrop-api.co/sketch-to-image/v1/sketch-to-image',
     files = {
-        'sketch_file': ('owl-sketch.jpg', sketch_file_object, 'image/jpeg'),
+        'sketch_file': ('static/generated/drawing.jpg', sketch_file_object, 'image/jpeg'),
         },
-    data = { 'prompt': 'an owl on a branch, cinematic' },
-    headers = { 'x-api-key': 'YOUR_API_KEY'}
+    data = { 'prompt': userPrompt},
+    headers = { 'x-api-key': '9da43ca4ce11dbf1b1cdab36ecf968c36896bbb5a46f5b1a4d62e8039737176c023f251323833cd6d1580eea6ba22b4c'}
     )
     if (r.ok):
         image = io.BytesIO(r.binary)

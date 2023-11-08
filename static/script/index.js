@@ -3,7 +3,6 @@
  */
 
 const canvas = document.getElementById('drawingCanvas');
-// const canvasContainer = document.getElementById('drawingContainer'); //Wont work due to scope of the script, however if the script is not inside the div, it will cease to function.... help?????
 
 const context = canvas.getContext('2d');
 
@@ -132,9 +131,10 @@ button.addEventListener('click', (e) => {
     })
   }
   else{
-    const base64_image = canvas.toDataURL();
-
-    fetch('/process_image', {
+    const base64_image = canvas.toDataURL("image/png");
+    var drawing = new Image();
+    drawing.src = base64_image;
+    fetch('/process_drawing', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
