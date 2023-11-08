@@ -131,9 +131,8 @@ button.addEventListener('click', (e) => {
     })
   }
   else{
-    const base64_image = canvas.toDataURL("image/png");
-    var drawing = new Image();
-    drawing.src = base64_image;
+    base64_image = canvas.toDataURL("image/png");
+    console.log(base64_image)
     fetch('/process_drawing', {
       method: 'POST',
       headers: {
