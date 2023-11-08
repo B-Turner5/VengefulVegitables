@@ -1,4 +1,4 @@
-# VengefulVegitables
+# VengefulVegetables
 As part of the 2023 BU Code Jam, our team, the "Vengeful Vegetables" have designed an application that allows you to search ClickASnap or generate AI images which you can then view in AR and purchase as a TeeMill shirt.
 
 ### Guide
