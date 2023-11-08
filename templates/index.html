@@ -7,7 +7,6 @@
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-
         <script src="{{ url_for('static',filename='script/splash.js') }}"> </script>
 
         <title> Vengeful Vegetables </title>
@@ -34,7 +33,6 @@
             <div id="main-frame">
                 <img src="" id="displayedImage" width="100%" height="100%">
                 <canvas id="drawingCanvas" width="100%" height="100%" style="box-shadow: none;">
-                    <script src="{{ url_for('static',filename='script/index.js')}}"></script>
                 </canvas>
                 <!-- <img src="" id="displayedImage"> -->
             </div> <!-- PUT DRAWING CANVAS HERE-->
@@ -43,31 +41,7 @@
                 <button id="search-image-button"> Search ClickASnap </button>
             </div>
         </main>
-        <script>
-            document.getElementById('gen-image-button').addEventListener('click', function(event) {
-                event.preventDefault();
-
-                const prompt = document.getElementById('promptInput').value;
-
-                fetch('/process_prompt', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({prompt: prompt})
-                })
-                .then(response => {
-                    if (response.ok) {
-                    return response.text();
-                } else {
-                    console.error('Error fetching image from server');
-                }})
-                .then(text => {
-                    document.getElementById('displayedImage').src = text; // Set the src attribute of the image
-                    document.getElementById('displayedImage').style.display = "block";
-                })
-            })
-        </script>
+        <script src="{{ url_for('static',filename='script/index.js')}}"></script>
     </body>
     <footer>
 
