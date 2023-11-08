@@ -142,6 +142,7 @@ button.addEventListener('click', (e) => {
   else{
     base64_image = canvas.toDataURL("image/png");
     console.log(base64_image)
+    console.log(typeof base64_image)
     fetch('/process_drawing', {
       method: 'POST',
       headers: {
