@@ -2,7 +2,6 @@
 
 * {
     overflow-x: hidden;
-    overflow-y: hidden;
     font-family: 'Segoe UI';
 }
 
@@ -53,7 +52,6 @@ body {
 /* SPLASH SCREEN ANIMATIONS */
 
 .hidden {
-    transform: all linear 0.5s;
     display: none;
 }
 
@@ -69,23 +67,26 @@ body {
 /* MAIN AREA */
 
 main {
-    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 50vw;
 }
 
 nav {
     height: 10vh;
     display: flex;
     align-items: center;
-    background-color: red;
+    font-size: 1.2em;
 }
 
 nav img {
-    height: 10vh;
+    margin: 0vw 2vw;
+    height: 5vh;
 }
+
+/* CAMERA */
 
 #camera-overlay {
     display: none;
@@ -98,32 +99,55 @@ nav img {
 }
 
 
-#inputPrompt {
+
+/* PROMPT AND CANVAS */
+
+#prompt-container {
     margin: 0 auto;
     width: 75vw;
     display: flex;
     flex-direction: column;
 }
 
-#inputPrompt p {
-    font-size: 3vw;
-}
-
-#inputPrompt input {
+#prompt-container input {
     height: 10vw;
     font-size: 5vw;
     border-radius: 2vw;
     padding: 2vw;
 }
 
+
+#canvas-container {
+    margin: 10vw auto;
+    width: 75vw;
+    height: 75vw;
+    border: solid rgb(60, 60, 60) 2px;
+    border-radius: 2vw;
+    overflow: hidden;
+}
+  
+#drawing-canvas {
+    position: absolute;
+    box-shadow: 0 0 4px;
+    height: 75vw;
+    width: 75vw;
+}
+  
+#output-image {
+    z-index: 1;
+    position: absolute;
+    display: none;
+    height: 75vw;
+    width: 75vw;
+}
+
 /* BUTTONS */
 
 button {
-    margin: 2vw;
     width: 50vw;
     height: 10vw;
     border-radius: 5vw;
-    font-size: 5vw;
+    font-size: 1rem;
     background-color: #0aadff;
     color: white;
     border: none;
@@ -141,9 +165,7 @@ button:active {
     transform: scale(110%);
 }
 
-/**/
-
-#button-box {
+#button-container {
     width: 75vw;
     margin: 0 auto;
     display: flex;
@@ -152,39 +174,14 @@ button:active {
     justify-content: center;
 }
 
-#main-frame {
-    margin: 10vw auto;
-    width: 75vw;
-    height: 75vw;
-    border: solid rgb(60, 60, 60) 2px;
-    border-radius: 2vw;
-    overflow: hidden;
+
+#gen-button-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
 }
 
-  .canvas-container {
-    position: relative;
-    height: calc(100vh - 55px);
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  canvas {
-    position: absolute;
-    box-shadow: 0 0 4px;
-    height: 75vw;
-    width: 75vw;
-  }
-  
-  .align-right {
-    float: right;
-  }
-  
-  #displayedImage {
-    z-index: 1;
-    position: absolute;
-    display: none;
-    height: 75vw;
-    width: 75vw;
+#gen-button-container button {
+    width: 50%;
 }
+

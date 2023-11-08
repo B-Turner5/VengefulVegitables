@@ -66,9 +66,9 @@ def process_image_input():
 
     # # userDrawing = Image.open(io.BytesIO(base64.decodebytes(bytes(userDrawingBase64, "utf-8"))))
 
-    # # userDrawing.save('static/generated/drawing', 'jpg')
+    userDrawing.save('static/generated/drawing', 'jpg')
 
-    # clear_cache()
+    clear_cache()
 
     # r = requests.post('https://clipdrop-api.co/sketch-to-image/v1/sketch-to-image',
     # files = {
