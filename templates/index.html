@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 
 <html lang="EN">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='images/teemill.svg') }}">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-        <script src="{{ url_for('static',filename='script/splash.js') }}"> </script>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='images/teemill.svg') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title> Vengeful Vegetables </title>
+</head>
 
-        <title> Vengeful Vegetables </title>
-    </head>
-    <div class="splash-screen">
-        <div class="splash-content">
-            <img src="{{ url_for('static',filename='images/teemill_full.svg') }}"/>
-            <h1> Tap to Start </h1>
+
+<div class="splash-screen">
+    <div class="splash-content">
+        <img src="{{ url_for('static',filename='images/teemill_full.svg') }}" />
+        <h1> Tap to Start </h1>
+    </div>
+</div>
+
+
+<div id="camera-overlay">
+    <button id="close-camera" class="flat-button" style="position: absolute;">x</button>
+    <iframe src="{{ url_for('static',filename='pages/arjs_scene.html') }}" width="100%" height="100%" frameBorder="0"></iframe>
+</div>
+
+
+<body>
+    <nav>
+        <img src="{{ url_for('static',filename='images/teemill.svg') }}">
+        <h1> Vengeful Vegetables </h1>
+    </nav>
+    <main>
+        <div id="prompt-container">
+            <p>Enter a prompt:</p>
+            <input type="text" id="promptInput" name="prompt">
         </div>
-    </div>
-    <div id="camera-overlay">
-        <button id="close-camera" style="position: absolute;"> Close </button>
-        <iframe src="{{ url_for('static',filename='pages/arjs_scene.html') }}" width="100%" height="100%" frameBorder="0"></iframe>
-    </div>
-    <body>
-        <nav>
-            <img src="{{ url_for('static',filename='images/teemill.svg') }}">
-            <h1> Vengeful Vegetables </h1>
-        </nav>
-        <main> <!-- THIS IS WHERE THE MAIN THINGY IS-->
-            <div id="inputPrompt">
-                <p>Enter a prompt:</p>
-                <input type="text" id="promptInput" name="prompt">
-            </div>
-            <div id="main-frame">
-                <img src="" id="displayedImage" width="100%" height="100%">
-                <canvas id="drawingCanvas" width="100%" height="100%" style="box-shadow: none;">
-                </canvas>
-                <!-- <img src="" id="displayedImage"> -->
-            </div> <!-- PUT DRAWING CANVAS HERE-->
-            <div id="button-box">
-                <button id="gen-image-button"> Generate AI Image </button>
-                <button id="search-image-button"> Search ClickASnap </button>
-                <button id="open-camera"> Open Camera </button>
-            </div>
-        </main>
-        <script src="{{ url_for('static',filename='script/index.js')}}"></script>
-    </body>
-    <footer>
-
-    </footer>
+        <div id="canvas-container">
+            <img src="" id="output-image" width="100%" height="100%"/>
+            <canvas id="drawing-canvas" width="100%" height="100%"></canvas>
+        </div>
+        <div id="button-container">
+            <button id="gen-image-button"> Generate AI Image </button>
+            <button id="search-image-button"> Search ClickASnap </button>
+            <button id="open-camera"> Open Camera </button>
+        </div>
+    </main>
+    <script src="{{ url_for('static',filename='script/splash.js') }}"> </script>
+    <script src="{{ url_for('static',filename='script/index.js')}}"></script>
+</body>
 </html>
