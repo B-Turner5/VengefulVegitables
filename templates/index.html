@@ -31,29 +31,30 @@
         <h1> Vengeful Vegetables </h1>
     </nav>
     <main>
-        <div id="prompt-container">
-            <p>Enter a prompt:</p>
-            <input type="text" id="prompt-input" name="prompt">
-        </div>
-        <div id="canvas-container">
-            <img src="" id="output-image" width="100%" height="100%" alt="ERROR"/>
-            <canvas id="drawing-canvas" width="100%" height="100%"></canvas>
-            <div id="loader" class="grow"></div>
-        </div>
-        <div id="button-container">
-            <div id="gen-button-container">
-                <button id="gen-image-button"> Generate AI Image </button>
-                <button id="search-image-button"> Search ClickASnap </button>
+        <div id="container">
+            <div id="prompt-container">
+                <p>Enter a prompt:</p>
+                <input type="text" id="prompt-input" name="prompt">
             </div>
-            <div id="extra-button-container">
-                <div id="extra-button-container-row">
-                    <button id="open-camera-button"> View in AR </button>
-                    <button id="clear-image-button"> Clear </button>
+            <div id="canvas-container">
+                <img src="" id="output-image" alt="ERROR"/>
+                <canvas id="drawing-canvas"></canvas>
+                <div id="loader" class="grow"></div>
+            </div>
+            <div id="button-container">
+                <div id="gen-button-container">
+                    <button id="gen-image-button"> Generate AI Image </button>
+                    <button id="search-image-button"> Search ClickASnap </button>
                 </div>
-                <button id="purchase-item-button"> Buy Shirt </button>
+                <div id="extra-button-container">
+                    <div id="extra-button-container-row">
+                        <button id="open-camera-button"> View in AR </button>
+                        <button id="clear-image-button"> Clear </button>
+                    </div>
+                    <button id="purchase-item-button"> Buy Shirt </button>
+                </div>
             </div>
         </div>
-
     </main>
     <script src="{{ url_for('static',filename='script/splash.js') }}"> </script>
     <script src="{{ url_for('static',filename='script/gen_buttons.js')}}"></script>
