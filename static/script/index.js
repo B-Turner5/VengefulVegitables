@@ -1,3 +1,7 @@
+/**
+ * Canvas code taken from teemill API example page. https://codepen.io/Teemill/pen/ExLerwZ
+ */
+
 const canvas = document.getElementById('drawingCanvas');
 // const canvasContainer = document.getElementById('drawingContainer'); //Wont work due to scope of the script, however if the script is not inside the div, it will cease to function.... help?????
 
@@ -100,15 +104,5 @@ canvas.addEventListener('touchmove', onMouseMove);
 window.addEventListener('mouseup', onMouseUp);
 window.addEventListener('touchend', onMouseUp);
 
-// const button = document.getElementById('gen-image-button');
-// button.addEventListener('click', (e) => {
-//     if (drawingMade == false){
-//         console.log("No Drawing Made.")
-//     }
-//     else{
-//         e.preventDefault();
-//         const base64_image = canvas.toDataURL();
-//     }
-// })
 
     
