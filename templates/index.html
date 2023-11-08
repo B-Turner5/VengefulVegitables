@@ -20,7 +20,7 @@
 
 
 <div id="camera-overlay">
-    <button id="close-camera" class="flat-button" style="position: absolute;">x</button>
+    <button id="close-camera-button" class="flat-button" style="position: absolute;">x</button>
     <iframe src="{{ url_for('static',filename='pages/arjs_scene.html') }}" width="100%" height="100%" frameBorder="0"></iframe>
 </div>
 
@@ -40,12 +40,20 @@
             <canvas id="drawing-canvas" width="100%" height="100%"></canvas>
         </div>
         <div id="button-container">
-            <button id="gen-image-button"> Generate AI Image </button>
-            <button id="search-image-button"> Search ClickASnap </button>
-            <button id="open-camera"> Open Camera </button>
+            <div id="gen-button-container">
+                <button id="gen-image-button"> Generate AI Image </button>
+                <button id="search-image-button"> Search ClickASnap </button>
+            </div>
+            <div id="extra-button-container">
+                <button id="open-camera-button"> View in AR </button>
+                <button id="clear-image-button"> Clear </button>
+                <button id="purchase-button"> Buy Shirt </button>
+            </div>
         </div>
+
     </main>
     <script src="{{ url_for('static',filename='script/splash.js') }}"> </script>
     <script src="{{ url_for('static',filename='script/index.js')}}"></script>
+    <script src="{{ url_for('static',filename='script/buttons.js')}}"></script>
 </body>
 </html>
