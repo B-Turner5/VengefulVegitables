@@ -1,16 +1,8 @@
-from flask import Flask, render_template, jsonify, request, send_file
+from flask import Flask, render_template, request
 import os
-import io
-import warnings
 from PIL import Image
-import random
 from torch import autocast
 from diffusers import StableDiffusionPipeline
-from super_image import DrlnModel, ImageLoader
-import requests
-import base64
-import sys
-import curlify
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
@@ -51,22 +43,19 @@ def clear_cache():
     except OSError:
         print("Error occured when purging cache.")
 
-def upscale_image(image, output_path):
-    model = DrlnModel.from_pretrained('eugenesiow/drln-bam', scale=2)
-    inputs = ImageLoader.load_image(image)
-    preds = model(inputs)
-    ImageLoader.save_image(preds, output_path)
-
 @app.route('/process_drawing', methods=['POST'])
 def process_image_input():
-    data = request.get_json()
-    print(data)
-    userDrawingBase64 = data.get('imagebase64')
-    print(userDrawingBase64)
+    print(request.content_length)
+    data = request.get_json() # So the issue with this, is that data is a dictionary, and contains ALL THE DATA needed. 
+    #However, for some arbitrary reason, data["imagebase64"] does NOT CONTAIN all the data stored within the dictionary, returning a truncated version of it.
 
-    # # userDrawing = Image.open(io.BytesIO(base64.decodebytes(bytes(userDrawingBase64, "utf-8"))))
+    print(data["imagebase64"])
 
-    userDrawing.save('static/generated/drawing', 'jpg')
+    # userDrawingBase64 = data.get('imagebase64')
+
+    # userDrawing = Image.open(io.BytesIO(base64.decodebytes(bytes(userDrawingBase64, "utf-8"))))
+
+    # userDrawing.save('static/generated/drawing', 'png')
 
     clear_cache()
 
@@ -84,4 +73,4 @@ def process_image_input():
     #     r.raise_for_status()
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True, ssl_context="adhoc")
+    app.run(host="0.0.0.0", debug=True)
