@@ -15,8 +15,12 @@ In case you get cuda errors and torch breaks.
 
 ### Limitations and Further Development
 
+### TODO
+random seed for each ai generation, so same prompts have different results
 
 ### References
+https://www.w3schools.com/
+https://teemill.com/api-docs/create-custom-product/guides/javascript/
 
 
 
