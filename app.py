@@ -3,6 +3,8 @@ import os
 from PIL import Image
 from torch import autocast
 from diffusers import StableDiffusionPipeline
+import io, base64
+from io import BytesIO
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
@@ -49,13 +51,38 @@ def process_image_input():
     data = request.get_json() # So the issue with this, is that data is a dictionary, and contains ALL THE DATA needed. 
     #However, for some arbitrary reason, data["imagebase64"] does NOT CONTAIN all the data stored within the dictionary, returning a truncated version of it.
 
-    print(data["imagebase64"])
+    userDrawingBase64 = data.get('imagebase64')
 
-    # userDrawingBase64 = data.get('imagebase64')
+    # print(userDrawingBase64)
 
-    # userDrawing = Image.open(io.BytesIO(base64.decodebytes(bytes(userDrawingBase64, "utf-8"))))
+    def fix_base64_padding(base64_string):
+        missing_padding = len(base64_string) % 4
+        if missing_padding != 0:
+            base64_string += '=' * (4 - missing_padding)
+        return base64_string
+    
+    def convert_base64_to_image(base64_string, output_filename):
+        # Fix base64 padding
+        base64_string = fix_base64_padding(base64_string)
 
-    # userDrawing.save('static/generated/drawing', 'png')
+        # Convert the base64 string to bytes
+        base64_bytes = base64.b64decode(base64_string)
+
+        # Check if the data is a valid image
+        image = Image.open(BytesIO(base64_bytes))
+        print(image)
+        image.verify()
+
+        # Reset the BytesIO object for reading the image
+        image.seek(0)
+
+        # Save the image as a JPG file
+        image.save(output_filename, "JPEG")
+
+    userDrawingBase64 = userDrawingBase64[22:]
+    print(userDrawingBase64)
+    convert_base64_to_image(userDrawingBase64, "static/generated/drawing.jpg")
+
 
     clear_cache()
 
