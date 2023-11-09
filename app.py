@@ -4,8 +4,8 @@ from PIL import Image
 from torch import autocast
 from diffusers import StableDiffusionPipeline
 import io, base64
-from io import BytesIO
 import requests
+import random
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
@@ -18,20 +18,17 @@ def hello_world():
 
     return render_template('index.html')
 
-@app.route('/process_prompt', methods=['POST'])
 def process_input():
-
     clear_cache()
-
     data = request.get_json()
     userPrompt = data.get('prompt')
-
-
+    random_seed = random.randint(1, 4294967296)
     pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4")
+    generator = Generator("cuda").manual_seed(random_seed)
     pipe.to("cuda")
-    image = pipe(userPrompt).images[0]
+    image = pipe(userPrompt, generator=generator).images[0]
     
-    output_path = f"static/generated/{userPrompt}.png"
+    output_path = f"static/generated/{userPrompt}_{random_seed}.png"
     image.save(output_path, 'png')
     return output_path
     
