@@ -1,4 +1,11 @@
 document.getElementById('open-camera-button').addEventListener('click', function () {
+  fetch('/update_shirt_texture', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    // body: JSON.stringify({"prompt": prompt})
+  })
   document.getElementById("camera-overlay").style.display = "flex";
   window.scrollTo(0, 0);
   document.getElementsByTagName("body")[0].style.overflowY = "hidden";

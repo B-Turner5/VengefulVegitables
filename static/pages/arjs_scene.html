@@ -23,7 +23,7 @@
     <a-scene embedded arjs="detectionMode: mono_and_matrix; matrixCodeType: 3x3;" renderer="logarithmicDepthBuffer: true;" vr-mode-ui ="enabled: false">
         <!--<a-marker-camera preset="hiro"></a-marker-camera>-->
         <a-marker preset="hiro">
-            <a-entity gltf-model = "url(/static/assets/tshirt/tshirt.gltf)" scale = "0.05 0.05 0.05" rotation = "270 0 0" position = "0 0 2.6" src="url(/static/tshirt/shirt.png)"></a-entity>
+            <a-entity obj-model = "obj: url(/static/assets/tshirt/tshirt.obj); mtl: url(/static/assets/tshirt/tshirt.mtl)" scale = "0.05 0.05 0.05" rotation = "270 0 0" position = "0 0 2.6"></a-entity>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>

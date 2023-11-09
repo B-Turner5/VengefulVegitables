@@ -37,6 +37,7 @@ def process_prompt():
     image = pipe(userPrompt, generator=generator).images[0]
     
     output_path = f"static/generated/{userPrompt}_{random_seed}.png"
+    global recent_image
     recent_image = output_path
     image.save(output_path, 'png')
     return output_path
@@ -109,7 +110,8 @@ def update_model():
     shirt_texture = cv2.imread("static/assets/tshirt/shirt.png")
     replacing_img = cv2.imread(recent_image)
 
-    shirt_texture[0:512, 0:512] = replacing_img[0:512,0:512] #0.256:0.676
+    offset_x = 400
+    shirt_texture[256:768, (512-offset_x):(1024-offset_x)] = replacing_img[0:512,0:512] #0.256:0.676
     cv2.imwrite("static/assets/tshirt/shirt.png", shirt_texture)
     return "done"
 
