@@ -1,10 +1,12 @@
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch
+torchvision
+torchaudio
 flask
 pyopenssl
 super_image
 cuda-python
-torch
-torchvision
-torchaudio
 Pillow
 transformers
 curlify
+pygltflib
