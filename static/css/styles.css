@@ -69,7 +69,6 @@ body {
 /* MAIN AREA */
 
 main {
-    margin-top: 10vh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -183,10 +182,13 @@ button {
     color: white;
     border: none;
     transition: transform ease-in-out 0.5s;
+    cursor: pointer;
 }
 
 button:active {
-    background-color: red;
+    background-color: white;
+    border: 2px solid #0aadff;
+    color: #0aadff;
 }
 
 .flat-button {
@@ -194,6 +196,12 @@ button:active {
     width: 3rem;
     height: 3rem;
     text-align: center;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.flat-button:active {
     background-color: transparent;
     border: none;
     color: white;
