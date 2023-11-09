@@ -130,7 +130,8 @@ nav img {
 }
 
 #prompt-container input {
-    height: 75%;
+    width: calc(100% - 20px);
+    max-width: 750px;
     max-height: 200px;
     padding: 10px;
     font-size: 20px;
@@ -254,16 +255,18 @@ button:active {
 
 #clear-image-button {
     width: 30%;
-    border-radius: 0vw 5vw 5vw 0vw;
+    border-radius: 5vw;
 }
 
-#purchase-button {
+#purchase-item-button {
     width: 100%;
+    border-radius: 0vw 5vw 5vw 0vw;
 }
 
 /* LOADER */
 
 #loader {
+    display: none;
     z-index: 5;
     opacity: 0;
     border: 16px solid #f3f3f3; /* Light grey */

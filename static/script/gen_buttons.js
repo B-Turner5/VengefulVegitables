@@ -111,6 +111,11 @@ button.addEventListener('click', (e) => {
 
   document.getElementById('loader').style.opacity = 1;
 
+  setTimeout(()=>{
+  document.getElementById('loader').style.display = "flex";
+}, 1000)
+
+
   e.preventDefault();
   if(drawingMade == false){
 
@@ -130,13 +135,17 @@ button.addEventListener('click', (e) => {
     .then(text => {
       document.getElementById('output-image').src = text; // Set the src attribute of the image
       document.getElementById('output-image').style.opacity = 1;
+
+      document.getElementById('loader').style.opacity = 0;
+      
       setTimeout(()=>{
         document.getElementById('output-image').style.display = "block";
+        document.getElementById('loader').style.display = "hidden";
     }, 1000)
 
       document.getElementById('gen-button-container').style.display = "none";
       document.getElementById('extra-button-container').style.display = "flex";
-      document.getElementById('loader').style.opacity = 0;
+      
     })
   }
   else{
@@ -159,13 +168,15 @@ button.addEventListener('click', (e) => {
      .then(text => {
       document.getElementById('output-image').src = text; // Set the src attribute of the image
       document.getElementById('output-image').style.opacity = 1;
+      document.getElementById('loader').style.opacity = 0;
+
       setTimeout(()=>{
         document.getElementById('output-image').style.display = "block";
+        document.getElementById('loader').style.display = "hidden";
     }, 1000)
   
       document.getElementById('gen-button-container').style.display = "none";
       document.getElementById('extra-button-container').style.display = "flex";
-      document.getElementById('loader').style.opacity = 0;
     })
   }
 })
