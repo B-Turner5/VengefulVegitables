@@ -109,7 +109,7 @@ def update_model():
     shirt_texture = cv2.imread("static/assets/tshirt/shirt.png")
     replacing_img = cv2.imread(recent_image)
 
-    shirt_texture[0.256:0.676, 513:513] = replacing_img[0:0,512:512]
+    shirt_texture[0:512, 0:512] = replacing_img[0:512,0:512] #0.256:0.676
     cv2.imwrite("static/assets/tshirt/shirt.png", shirt_texture)
     return "done"
 
