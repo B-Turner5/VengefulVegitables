@@ -10,11 +10,12 @@ import pygltflib
 import pygltflib.utils
 import re
 import cv2
+import numpy
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
 
 global recent_image
-recent_image = "static/assets/tshirt/shirt.png"
+recent_image = "generated/RamenPanda.png"
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16000000
@@ -105,8 +106,11 @@ def update_model():
 
     # gltf_model.save("static/assets/tshirt/tshirt_UPDATED.gltf")
 
-    shirt_texture = "static/assets/tshirt/shirt.png"
+    shirt_texture = cv2.imread("static/assets/tshirt/shirt.png")
+    replacing_img = cv2.imread(recent_image)
 
+    shirt_texture[0.256:0.676, 513:513] = replacing_img[0:0,512:512]
+    cv2.imwrite("static/assets/tshirt/shirt.png", shirt_texture)
     return "done"
 
 if __name__ == '__main__':
