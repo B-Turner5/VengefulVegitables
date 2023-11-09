@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import os
 from PIL import Image
-from torch import autocast
+from torch import autocast, Generator
 from diffusers import StableDiffusionPipeline
 import io, base64
 import requests
@@ -18,7 +18,8 @@ def hello_world():
 
     return render_template('index.html')
 
-def process_input():
+@app.route('/process_prompt', methods=['POST'])
+def process_prompt():
     clear_cache()
     data = request.get_json()
     userPrompt = data.get('prompt')
