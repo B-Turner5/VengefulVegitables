@@ -8,6 +8,7 @@ import requests
 import random
 import pygltflib
 import pygltflib.utils
+import re
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
@@ -59,6 +60,9 @@ def process_image_input():
     userDrawingBase64 = data.get('imagebase64')
 
     userPrompt = data.get('prompt')
+
+    # USE A REGEX EXPRESSION TO AVOID BAD FILENAMES
+    userPrompt = re.sub(r"^![\w\-. ]+$", "", userPrompt)
 
     userDrawingBase64 = userDrawingBase64[22:]
 

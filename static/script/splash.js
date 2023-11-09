@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    window.scrollTo(0, 0);
     var splashContent = document.querySelector(".splash-content");
     var splashScreen = document.querySelector(".splash-screen");
 
