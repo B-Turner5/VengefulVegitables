@@ -8,11 +8,13 @@ import requests
 import random
 import pygltflib
 import pygltflib.utils
+import cv2
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
 
 global recent_image
+recent_image = "static/assets/tshirt/shirt.png"
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16000000
@@ -89,16 +91,20 @@ def process_image_input():
 
 @app.route('/update_shirt_texture', methods=['POST'])
 def update_model():
-    gltf_model = pygltflib.GLTF2().load("static/assets/tshirt/tshirt.gltf")
-    gltf_image = pygltflib.Image()
-    gltf_image.uri = recent_image
+    # gltf_model = pygltflib.GLTF2().load("static/assets/tshirt/tshirt.gltf")
+    # gltf_image = pygltflib.Image()
+    # gltf_image.uri = recent_image
 
-    gltf_model.images.append(gltf_image)
-    gltf_model.convert_images(pygltflib.ImageFormat.DATAURI)
-    gltf_model.images[0].uri
-    gltf_model.images[0].name
+    # gltf_model.images.append(gltf_image)
+    # gltf_model.convert_images(pygltflib.ImageFormat.DATAURI)
+    # gltf_model.images[0].uri
+    # gltf_model.images[0].name
 
-    gltf_model.save("static/assets/tshirt/tshirt_UPDATED.gltf")
+    # gltf_model.save("static/assets/tshirt/tshirt_UPDATED.gltf")
+
+    shirt_texture = "static/assets/tshirt/shirt.png"
+
+    return "done"
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", debug=True, ssl_context="adhoc")
