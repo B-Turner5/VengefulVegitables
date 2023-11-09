@@ -6,9 +6,13 @@ from diffusers import StableDiffusionPipeline
 import io, base64
 import requests
 import random
+import pygltflib
+import pygltflib.utils
 
 
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
+
+global recent_image
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16000000
@@ -30,6 +34,7 @@ def process_prompt():
     image = pipe(userPrompt, generator=generator).images[0]
     
     output_path = f"static/generated/{userPrompt}_{random_seed}.png"
+    recent_image = output_path
     image.save(output_path, 'png')
     return output_path
     
@@ -81,6 +86,19 @@ def process_image_input():
         r.raise_for_status()
 
     return "static/generated/sketchtoai.jpg"
-    
+
+@app.route('/update_shirt_texture', methods=['POST'])
+def update_model():
+    gltf_model = pygltflib.GLTF2().load("static/assets/tshirt/tshirt.gltf")
+    gltf_image = pygltflib.Image()
+    gltf_image.uri = recent_image
+
+    gltf_model.images.append(gltf_image)
+    gltf_model.convert_images(pygltflib.ImageFormat.DATAURI)
+    gltf_model.images[0].uri
+    gltf_model.images[0].name
+
+    gltf_model.save("static/assets/tshirt/tshirt_UPDATED.gltf")
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
