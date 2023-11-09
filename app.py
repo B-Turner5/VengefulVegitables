@@ -100,4 +100,4 @@ def process_image_input():
     #     r.raise_for_status()
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", debug=True, ssl_context="adhoc")
