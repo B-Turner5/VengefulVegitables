@@ -15,7 +15,8 @@ In case you get cuda errors and torch breaks.
 
 ### Limitations and Further Development
 DO NOT RUN USING DEBUG, THE BASE64 PASSED BACK FROM THE JAVASCRIPT WILL BE TRUNCATED AND SKETCH TO IMAGE WILL BREAK
-\nAMD cards only supported on Linux systems
+
+AMD cards only supported on Linux systems
 
 ### References
 https://www.w3schools.com/
