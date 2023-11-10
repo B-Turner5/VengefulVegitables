@@ -6,11 +6,18 @@ document.getElementById('open-camera-button').addEventListener('click', function
     },
     // body: JSON.stringify({"prompt": prompt})
   })
-  document.getElementById("camera-overlay").style.display = "flex";
-  window.scrollTo(0, 0);
-  document.getElementsByTagName("body")[0].style.overflowY = "hidden";
-  document.getElementById('TSHIRT_model');
-  TSHIRT_model.setAtrribute(obj-model, "obj: url(/static/assets/tshirt/tshirt.obj); mtl: url(/static/assets/tshirt/tshirt.mtl)");
+  .then(response => 
+  {
+    document.getElementById("camera-overlay").style.display = "flex";
+    window.scrollTo(0, 0);
+    document.getElementsByTagName("body")[0].style.overflowY = "hidden";
+    
+    var frame = document.getElementById("iframe");
+    var cont = frame.innerHTML;
+    frame.innerHTML = cont; 
+    
+    //document.getElementById('TSHIRT_model');
+    //TSHIRT_model.setAttribute(obj-model, "obj: url(/static/assets/tshirt/tshirt.obj); mtl: url(/static/assets/tshirt/tshirt.mtl)");
 })
 
 document.getElementById('close-camera-button').addEventListener('click', function () {
@@ -80,4 +87,4 @@ document.getElementById('purchase-item-button').addEventListener('click', functi
         .then(response => response.json())
         .then(response => newTab.location.href = response.url)
         .catch(err => console.error(err));
-})
+})})
