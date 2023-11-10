@@ -9,7 +9,8 @@ document.getElementById('open-camera-button').addEventListener('click', function
   document.getElementById("camera-overlay").style.display = "flex";
   window.scrollTo(0, 0);
   document.getElementsByTagName("body")[0].style.overflowY = "hidden";
-
+  document.getElementById('TSHIRT_model');
+  TSHIRT_model.setAtrribute(obj-model, "obj: url(/static/assets/tshirt/tshirt.obj); mtl: url(/static/assets/tshirt/tshirt.mtl)");
 })
 
 document.getElementById('close-camera-button').addEventListener('click', function () {
