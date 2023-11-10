@@ -59,10 +59,6 @@ document.getElementById('purchase-item-button').addEventListener('click', functi
   // Get the base64 data from the canvas
   var base64String = myCanvas.toDataURL('image/png'); // You can change the format as needed
 
-  // Display or use the base64 string
-  console.log('Base64 String:', base64String);
-
-
     const options = {
         method: 'POST',
         headers: {
