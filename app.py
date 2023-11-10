@@ -16,7 +16,7 @@ import shutil
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
 
 global recent_image
-recent_image = "generated/RamenPanda.png"
+recent_image = "static/generated/RamenPanda.png"
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16000000
