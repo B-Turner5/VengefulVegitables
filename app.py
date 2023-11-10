@@ -39,6 +39,7 @@ def process_prompt():
     
     output_path = f"static/generated/{userPrompt}_{random_seed}.png"
     global recent_image
+    print(recent_image)
     recent_image = output_path
     image.save(output_path, 'png')
     return output_path
@@ -115,6 +116,10 @@ def update_model():
     shirt_texture[256:768, (512-offset_x):(1024-offset_x)] = replacing_img[0:512,0:512] #0.256:0.676
     cv2.imwrite("static/assets/tshirt/shirt.png", shirt_texture)
     return "done"
+
+@app.route('/generating')
+def display_generating_page():
+    return render_template('generating.html')
 
 def center_crop(img, dim):
 	"""Returns center cropped image
