@@ -5,21 +5,25 @@ document.getElementById('open-camera-button').addEventListener('click', function
         'Content-Type': 'application/json'
     },
     // body: JSON.stringify({"prompt": prompt})
-  })
+  }).then(response=>{
   
-  document.getElementById("camera-overlay").style.display = "flex";
-  window.scrollTo(0, 0);
-  document.getElementsByTagName("body")[0].style.overflowY = "hidden";
+    document.getElementById("camera-overlay").style.display = "flex";
+    window.scrollTo(0, 0);
+    document.getElementsByTagName("body")[0].style.overflowY = "hidden";
+    var shirt = document.getElementById("iframe").contentWindow.document.getElementById("shirt");
+    shirt.removeAttribute("obj-model");
+    
+    var mtl = document.getElementById("iframe").contentWindow.document.getElementById('shirt-mtl');
+    console.log(mtl);
+    mtl.removeAttribute('src');
+    mtl.setAttribute('src', "/static/assets/tshirt/new_tshirt.mtl");
+
+    shirt.setAttribute("obj-model", "obj: #shirt-obj; mtl: #shirt-mtl");
   
-  var frame = document.getElementById("iframe");
-  //frame.setAttribute("src", ".static/pages/arjs_scene.html'");
-  //document.getElementById('TSHIRT_model');
-  //TSHIRT_model.setAttribute(obj-model, "obj: url(/static/assets/tshirt/tshirt.obj); mtl: url(/static/assets/tshirt/tshirt.mtl)");
-
-
-  document.getElementById('close-camera-button').addEventListener('click', function () {
-  document.getElementById("camera-overlay").style.display = "none";
-  document.getElementsByTagName("body")[0].style.overflowY = "scroll";
+    document.getElementById('close-camera-button').addEventListener('click', function () {
+    document.getElementById("camera-overlay").style.display = "none";
+    document.getElementsByTagName("body")[0].style.overflowY = "scroll";
+    });
 })
 
 let ctx = canvas.getContext("2d");

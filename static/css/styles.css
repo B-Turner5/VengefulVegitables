@@ -193,6 +193,7 @@ button:active {
 }
 
 .flat-button {
+    top: 25%;
     right: 0%;
     width: 3rem;
     height: 3rem;
