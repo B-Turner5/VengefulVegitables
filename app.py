@@ -112,7 +112,7 @@ def update_model():
     shirt_texture = cv2.imread("static/assets/tshirt/shirt.png")
     replacing_img = cv2.imread(recent_image)
 
-    offset_x = 400
+    offset_x = 200
     shirt_texture[256:768, (512-offset_x):(1024-offset_x)] = replacing_img[0:512,0:512] #0.256:0.676
     cv2.imwrite("static/assets/tshirt/shirt.png", shirt_texture)
     return "done"
