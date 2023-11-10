@@ -60,7 +60,7 @@ function onMouseMove(e) {
     e = e.touches[0];
   }
   let size = 1;
-  
+
   // calculate the distance between the points and scale the size of the new circle based on that distance
   const deltaX = e.pageX - lastEvent.pageX;
   const deltaY = e.pageY - lastEvent.pageY;
@@ -70,14 +70,14 @@ function onMouseMove(e) {
   );
 
   size = Math.max(minSize, Math.min(maxSize, distanceToLastMousePosition / 3));
-  
+
   if (drawingMode) {
     drawCircle(e.pageX, e.pageY, size, color);
   }
-  
+
   if (lastSize) {
     const deltaSize = size - lastSize;
-    
+
     for (let i = 0; i < distanceToLastMousePosition; i += 1) {
       const shift = (i / distanceToLastMousePosition);
       // draw circles between our new mouse position and our previous one, to smooth the line out
@@ -111,75 +111,111 @@ button.addEventListener('click', (e) => {
 
   document.getElementById('loader').style.opacity = 1;
 
-  setTimeout(()=>{
-  document.getElementById('loader').style.display = "flex";
-}, 1000)
+  setTimeout(() => {
+    document.getElementById('loader').style.display = "flex";
+  }, 1000)
 
 
   e.preventDefault();
-  if(drawingMade == false){
+  if (drawingMade == false) {
 
     fetch('/process_prompt', {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({"prompt": prompt})
+      body: JSON.stringify({ "prompt": prompt })
     })
-    .then(response => {
-      if (response.ok) {
-      return response.text();
-    } else {
-      console.error('Error fetching image from server');
-    }})
-    .then(text => {
-      document.getElementById('output-image').src = text; // Set the src attribute of the image
-      document.getElementById('output-image').style.opacity = 1;
+      .then(response => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          console.error('Error fetching image from server');
+        }
+      })
+      .then(text => {
+        document.getElementById('output-image').src = text; // Set the src attribute of the image
+        document.getElementById('output-image').style.opacity = 1;
 
-      document.getElementById('loader').style.opacity = 0;
-      
-      setTimeout(()=>{
-        document.getElementById('output-image').style.display = "block";
-        document.getElementById('loader').style.display = "hidden";
-    }, 1000)
+        document.getElementById('loader').style.opacity = 0;
 
-      document.getElementById('gen-button-container').style.display = "none";
-      document.getElementById('extra-button-container').style.display = "flex";
-      
-    })
+        setTimeout(() => {
+          document.getElementById('output-image').style.display = "block";
+          document.getElementById('loader').style.display = "hidden";
+        }, 1000)
+
+        document.getElementById('gen-button-container').style.display = "none";
+        document.getElementById('extra-button-container').style.display = "flex";
+
+      })
   }
-  else{
+  else {
     base64_image = canvas.toDataURL("image/png");
     fetch('/process_drawing', {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({"imagebase64": base64_image, "prompt": prompt})
-      })
-    .then(response => {
-      if (response.ok) {
-        return response.text();
-    } else {
-      console.error('Error fetching image from server');
-      }})
-     .then(text => {
-      document.getElementById('output-image').src = text; // Set the src attribute of the image
-      document.getElementById('output-image').style.opacity = 1;
-      document.getElementById('loader').style.opacity = 0;
-
-      setTimeout(()=>{
-        document.getElementById('output-image').style.display = "block";
-        document.getElementById('loader').style.display = "hidden";
-    }, 1000)
-  
-      document.getElementById('gen-button-container').style.display = "none";
-      document.getElementById('extra-button-container').style.display = "flex";
+      body: JSON.stringify({ "imagebase64": base64_image, "prompt": prompt })
     })
+      .then(response => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          console.error('Error fetching image from server');
+        }
+      })
+      .then(text => {
+        document.getElementById('output-image').src = text; // Set the src attribute of the image
+        document.getElementById('output-image').style.opacity = 1;
+        document.getElementById('loader').style.opacity = 0;
+
+        setTimeout(() => {
+          document.getElementById('output-image').style.display = "block";
+          document.getElementById('loader').style.display = "hidden";
+        }, 1000)
+
+        document.getElementById('gen-button-container').style.display = "none";
+        document.getElementById('extra-button-container').style.display = "flex";
+      })
   }
 })
 
 document.getElementById("search-image-button").addEventListener('click', (e) => {
-    document.getElementById('gen-button-container').style.display = "none";
-    document.getElementById('extra-button-container').style.display = "flex";
+  document.getElementById('gen-button-container').style.display = "none";
+  document.getElementById('extra-button-container').style.display = "flex";
+
+  document.getElementById('loader').style.opacity = 1;
+  setTimeout(() => {
+    document.getElementById('loader').style.display = "flex";
+  }, 1000)
+
+  const prompt = document.getElementById('prompt-input').value;
+
+  fetch('/image_search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"prompt": prompt})
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.text();
+      } else {
+        console.error('Error fetching image from server');
+      }
+    }).then(text => {
+      document.getElementById('output-image').src = text; // Set the src attribute of the image
+      document.getElementById('output-image').style.opacity = 1;
+      document.getElementById('loader').style.opacity = 0;
+
+      setTimeout(() => {
+        document.getElementById('output-image').style.display = "block";
+        document.getElementById('loader').style.display = "hidden";
+      }, 1000)
+
+      document.getElementById('gen-button-container').style.display = "none";
+      document.getElementById('extra-button-container').style.display = "flex";
+    })
 })

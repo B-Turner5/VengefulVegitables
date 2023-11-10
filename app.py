@@ -11,7 +11,8 @@ import pygltflib.utils
 import re
 import cv2
 import numpy
-
+from bing_image_downloader import downloader
+import shutil
 ###### ensure "pip install --upgrade diffusers[torch]" is called after installing requirements.txt
 
 global recent_image
@@ -115,5 +116,69 @@ def update_model():
     cv2.imwrite("static/assets/tshirt/shirt.png", shirt_texture)
     return "done"
 
+def center_crop(img, dim):
+	"""Returns center cropped image
+	Args:
+	img: image to be center cropped
+	dim: dimensions (width, height) to be cropped
+	"""
+	width, height = img.shape[1], img.shape[0]
+
+	# process crop width and height for max available dimension
+	crop_width = dim[0] if dim[0]<img.shape[1] else img.shape[1]
+	crop_height = dim[1] if dim[1]<img.shape[0] else img.shape[0] 
+	mid_x, mid_y = int(width/2), int(height/2)
+	cw2, ch2 = int(crop_width/2), int(crop_height/2) 
+	crop_img = img[mid_y-ch2:mid_y+ch2, mid_x-cw2:mid_x+cw2]
+	return crop_img
+
+def scale_image(img, factor=1):
+	"""Returns resize image by scale factor.
+	This helps to retain resolution ratio while resizing.
+	Args:
+	img: image to be scaled
+	factor: scale factor to resize
+	"""
+	return cv2.resize(img,(int(img.shape[1]*factor), int(img.shape[0]*factor)))
+
+#https://medium.com/curious-manava/center-crop-and-scaling-in-opencv-using-python-279c1bb77c74
+
+@app.route("/image_search", methods=['POST'])
+def search():
+
+    for subdir, dirs, files in os.walk("static/searched"):
+        for d in dirs:
+            p = os.path.join("static/searched", d)
+            shutil.rmtree(p)
+            
+
+    data = request.get_json()
+    userPrompt = data.get('prompt')
+    downloader.download(userPrompt, limit=1, output_dir='static/searched', adult_filter_off=True, force_replace=False, timeout=60, verbose=True)
+    image_path = f"static/searched/{userPrompt}"
+
+    for i in os.listdir(image_path):
+        image_path = os.path.join(image_path, i)
+
+    img = cv2.imread(image_path)
+
+    if img is not None:
+
+        #scale = img.shape[0] if img.shape[0] < img.shape[1] else img.shape[1]
+
+        #out = center_crop(img, (512, 512))
+        #out = scale_image(out, scale/512)
+
+        out = img
+
+        cv2.imwrite(image_path, out)
+
+        global recent_image
+        recent_image = image_path
+    
+        return image_path
+    
+    return 404
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True, ssl_context="adhoc")
+    app.run(host="0.0.0.0", debug=True)
