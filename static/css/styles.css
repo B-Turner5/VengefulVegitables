@@ -169,6 +169,7 @@ nav img {
     aspect-ratio: 1;
     border-radius: 10px;
     transition: opacity ease-in-out 1s;
+    object-fit: contain;
 }
 
 /* BUTTONS */
@@ -285,7 +286,7 @@ button:active {
     animation: spin 2s linear infinite;
     transition: opacity ease-in-out 1s;
 }
-  
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

@@ -39,7 +39,6 @@ document.getElementById('clear-image-button').addEventListener('click', function
 
 
 
-// THIS FUNCTION DOES NOT SEEM TO RUN. I HAVE NO IDEA WHY
 document.getElementById('purchase-item-button').addEventListener('click', function () {
   const apiKey = 'OdCOVs1LdtwCLoeC5VE22JHETdNSyq75aY2ahGdt'; 
   var img = document.getElementById('output-image');
@@ -79,8 +78,7 @@ document.getElementById('purchase-item-button').addEventListener('click', functi
       };
       
       // Open a new tab, ready to receive the product URL
-      var newTab = window.open('about:blank', '_blank');
-      newTab.document.write("<div> <p> Generating Your Shirt </p> </div>");
+      var newTab = window.open('/generating');
     
       // Send the API request, and redirect the new tab to the URL that is returned
       fetch('https://teemill.com/omnis/v3/product/create', options)
