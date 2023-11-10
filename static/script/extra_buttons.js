@@ -6,21 +6,18 @@ document.getElementById('open-camera-button').addEventListener('click', function
     },
     // body: JSON.stringify({"prompt": prompt})
   })
-  .then(response => 
-  {
-    document.getElementById("camera-overlay").style.display = "flex";
-    window.scrollTo(0, 0);
-    document.getElementsByTagName("body")[0].style.overflowY = "hidden";
-    
-    var frame = document.getElementById("iframe");
-    var cont = frame.innerHTML;
-    frame.innerHTML = cont; 
-    
-    //document.getElementById('TSHIRT_model');
-    //TSHIRT_model.setAttribute(obj-model, "obj: url(/static/assets/tshirt/tshirt.obj); mtl: url(/static/assets/tshirt/tshirt.mtl)");
-})
+  
+  document.getElementById("camera-overlay").style.display = "flex";
+  window.scrollTo(0, 0);
+  document.getElementsByTagName("body")[0].style.overflowY = "hidden";
+  
+  var frame = document.getElementById("iframe");
+  //frame.setAttribute("src", ".static/pages/arjs_scene.html'");
+  //document.getElementById('TSHIRT_model');
+  //TSHIRT_model.setAttribute(obj-model, "obj: url(/static/assets/tshirt/tshirt.obj); mtl: url(/static/assets/tshirt/tshirt.mtl)");
 
-document.getElementById('close-camera-button').addEventListener('click', function () {
+
+  document.getElementById('close-camera-button').addEventListener('click', function () {
   document.getElementById("camera-overlay").style.display = "none";
   document.getElementsByTagName("body")[0].style.overflowY = "scroll";
 })
