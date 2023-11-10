@@ -25,6 +25,7 @@ document.getElementById('open-camera-button').addEventListener('click', function
     document.getElementsByTagName("body")[0].style.overflowY = "scroll";
     });
 })
+});
 
 let ctx = canvas.getContext("2d");
 
@@ -86,4 +87,4 @@ document.getElementById('purchase-item-button').addEventListener('click', functi
         .then(response => response.json())
         .then(response => newTab.location.href = response.url)
         .catch(err => console.error(err));
-})})
+});
