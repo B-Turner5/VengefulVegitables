@@ -169,6 +169,7 @@ nav img {
     aspect-ratio: 1;
     border-radius: 10px;
     transition: opacity ease-in-out 1s;
+    object-fit: contain;
 }
 
 /* BUTTONS */

@@ -10,3 +10,4 @@ Pillow
 transformers
 curlify
 pygltflib
+bing_image_downloader
