@@ -84,7 +84,7 @@ def process_image_input():
         'sketch_file': ('static\generated\drawing.jpg', sketch_file_object, 'image/jpeg'),
         },
     data = { 'prompt': userPrompt},
-    headers = { 'x-api-key': '9da43ca4ce11dbf1b1cdab36ecf968c36896bbb5a46f5b1a4d62e8039737176c023f251323833cd6d1580eea6ba22b4c'}
+    headers = { 'x-api-key': ''}
     )
     if (r.ok):
         with open('static/generated/sketchtoai.jpg', 'wb') as f:
